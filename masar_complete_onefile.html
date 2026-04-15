@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مسار | منصة متكاملة لمهارات المستقبل</title>
+  <style>
+    :root{
+      --bg:#0a0d14;
+      --bg2:#111624;
+      --panel:#131a2a;
+      --panel2:#0f1422;
+      --line:#232c43;
+      --text:#eef2ff;
+      --muted:#9aa6c5;
+      --brand:#7c9cff;
+      --brand2:#59e1c6;
+      --gold:#f2c66d;
+      --danger:#ff8b8b;
+      --ok:#7ef0b1;
+      --shadow:0 20px 50px rgba(0,0,0,.35);
+      --radius:22px;
+      --radius-sm:14px;
+      --max:1240px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(124,156,255,.16), transparent 28%),
+        radial-gradient(circle at 0% 20%, rgba(89,225,198,.10), transparent 26%),
+        linear-gradient(180deg,#090c13 0%, #0b0f18 100%);
+      color:var(--text);
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    .app{min-height:100vh}
+    .container{max-width:var(--max);margin:auto;padding:0 24px}
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      background:rgba(10,13,20,.78);backdrop-filter: blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 0}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:42px;height:42px;border-radius:14px;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      display:grid;place-items:center;color:#07111d;font-weight:800;box-shadow:var(--shadow)
+    }
+    .brand-title{font-weight:800;font-size:20px;letter-spacing:-.03em}
+    .brand-sub{color:var(--muted);font-size:12px;margin-top:2px}
+    .nav{display:flex;gap:10px;flex-wrap:wrap}
+    .nav a,.nav button{
+      border:1px solid transparent;background:transparent;color:var(--muted);
+      padding:10px 14px;border-radius:999px;cursor:pointer;transition:.2s
+    }
+    .nav a.active,.nav a:hover,.nav button:hover{background:#12192a;color:var(--text);border-color:#24304a}
+    .hero{padding:64px 0 42px}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;background:#0f1730;border:1px solid #26345b;color:#bfcaff;padding:8px 12px;border-radius:999px;font-size:12px}
+    .hero h1{font-size:clamp(34px,5vw,62px);line-height:1.03;letter-spacing:-.04em;margin:18px 0 16px}
+    .hero p{font-size:18px;line-height:1.9;color:var(--muted);max-width:760px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{
+      border:none;cursor:pointer;padding:14px 18px;border-radius:16px;
+      background:#171f34;color:var(--text);border:1px solid #2a3553;transition:.2s
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),#88a5ff);color:#08111f;border:none}
+    .btn-secondary{background:linear-gradient(135deg,#10241f,#15243c);border-color:#224647;color:#cdf7ef}
+    .btn-ghost{background:transparent}
+    .hero-panel,.panel{
+      background:linear-gradient(180deg,rgba(20,26,42,.96),rgba(12,17,29,.96));
+      border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);
+      box-shadow:var(--shadow)
+    }
+    .hero-panel{padding:22px}
+    .panel{padding:22px}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+    .metric{padding:18px;border-radius:18px;background:#0d1322;border:1px solid #1e2941}
+    .metric .n{font-size:30px;font-weight:800;letter-spacing:-.03em}
+    .metric .l{font-size:13px;color:var(--muted);margin-top:6px}
+    .section{padding:28px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:18px}
+    .section h2{margin:0;font-size:30px;letter-spacing:-.03em}
+    .section p.lead{color:var(--muted);margin:6px 0 0;line-height:1.8}
+    .grid{display:grid;gap:16px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-4{grid-template-columns:repeat(4,1fr)}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .card{
+      background:linear-gradient(180deg,#10172a,#0d1322);
+      border:1px solid #202b45;border-radius:20px;padding:18px;box-shadow:var(--shadow)
+    }
+    .card h3,.card h4{margin:0 0 10px}
+    .card p{margin:0;color:var(--muted);line-height:1.8}
+    .tagrow,.pillrow{display:flex;gap:8px;flex-wrap:wrap}
+    .tag,.pill{padding:8px 12px;border-radius:999px;font-size:12px;border:1px solid #26324f;background:#0e1526;color:#ced8f4}
+    .pill{background:#10231f;border-color:#244842;color:#d1fff3}
+    .path-card{display:flex;flex-direction:column;gap:14px;cursor:pointer;transition:.22s}
+    .path-card:hover{transform:translateY(-4px);border-color:#3b4c73}
+    .small{font-size:13px;color:var(--muted)}
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .stage{position:relative;padding:18px;background:#0d1321;border:1px solid #1f2941;border-radius:18px;min-height:140px}
+    .stage::before{content:"";position:absolute;top:16px;right:16px;width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2))}
+    .progress{height:10px;border-radius:999px;background:#0d1322;border:1px solid #1d2740;overflow:hidden}
+    .progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));border-radius:999px}
+    .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .kpi{padding:18px;border-radius:18px;background:#0d1322;border:1px solid #1e2941}
+    .kpi strong{display:block;font-size:28px;margin-bottom:8px}
+    .list{display:grid;gap:10px}
+    .list-item{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:14px;border-radius:16px;background:#0d1322;border:1px solid #1f2941}
+    .badge{padding:6px 10px;border-radius:999px;font-size:11px;font-weight:700}
+    .badge.ok{background:#103122;color:#adffd1;border:1px solid #22593d}
+    .badge.warn{background:#33280f;color:#ffe3a3;border:1px solid #6a5220}
+    .badge.danger{background:#351515;color:#ffb1b1;border:1px solid #703434}
+    .split{display:grid;grid-template-columns:1fr .92fr;gap:18px}
+    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .field{display:grid;gap:8px}
+    .field label{font-size:13px;color:#c6d2f2}
+    .input,.select,.textarea{
+      width:100%;padding:13px 14px;border-radius:14px;border:1px solid #283455;background:#0b1020;color:var(--text);outline:none
+    }
+    .textarea{min-height:110px;resize:vertical}
+    .notice{padding:16px 18px;border-radius:18px;background:#111a2c;border:1px solid #263554;color:#c5d4ff;line-height:1.8}
+    .empty{padding:32px;text-align:center;color:var(--muted);border:1px dashed #2b3959;border-radius:18px;background:#0d1322}
+    .portfolio-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .avatar{width:78px;height:78px;border-radius:22px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;font-size:28px;color:#09111d;font-weight:800}
+    .footer{padding:38px 0 60px;color:var(--muted);text-align:center}
+    .view{display:none}
+    .view.active{display:block}
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{padding:14px 12px;border-bottom:1px solid #202a43;text-align:right;vertical-align:top}
+    .table th{color:#c8d3f3;font-size:13px}
+    .table td{color:var(--muted);font-size:14px}
+    .aside-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:16px}
+    .score-ring{
+      width:150px;height:150px;border-radius:50%;display:grid;place-items:center;
+      background:conic-gradient(var(--brand) calc(var(--score)*1%), #172036 0);
+      margin:auto;
+    }
+    .score-ring::before{content:"";width:114px;height:114px;border-radius:50%;background:#0b1120;display:block}
+    .score-ring-wrap{position:relative;width:150px;height:150px;margin:auto}
+    .score-label{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+    .score-label strong{font-size:34px;display:block}
+    .muted{color:var(--muted)}
+    .hidden{display:none !important}
+    @media (max-width:1100px){
+      .hero-grid,.split,.aside-grid,.grid-4,.timeline,.kpi-row{grid-template-columns:1fr 1fr}
+      .grid-3{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:760px){
+      .hero-grid,.split,.aside-grid,.grid-4,.grid-3,.grid-2,.timeline,.metrics,.kpi-row,.form-grid{grid-template-columns:1fr}
+      .nav{display:none}
+      .hero{padding-top:34px}
+      .hero h1{font-size:36px}
+      .section h2{font-size:24px}
+      .container{padding:0 16px}
+      .topbar-inner{padding:12px 0}
+    }
+  </style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="logo">م</div>
+        <div>
+          <div class="brand-title">مسار</div>
+          <div class="brand-sub">منصة ذكية لتوجيه الطلاب نحو مهارات المستقبل</div>
+        </div>
+      </div>
+      <nav class="nav" id="mainNav">
+        <a href="#home" data-route="home">الرئيسية</a>
+        <a href="#paths" data-route="paths">المسارات</a>
+        <a href="#discovery" data-route="discovery">اكتشاف المسار</a>
+        <a href="#student" data-route="student">لوحة الطالب</a>
+        <a href="#mentor" data-route="mentor">لوحة المرشد</a>
+        <a href="#admin" data-route="admin">الإدارة</a>
+        <a href="#portfolio" data-route="portfolio">الـPortfolio</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="view active" id="view-home">
+      <div class="container hero">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">⚡ نسخة متكاملة · ملف واحد · تعمل مباشرة</div>
+            <h1>ابنِ مستقبل الطالب<br>بمسارات مهنية ذكية <span style="color:var(--brand2)">مدعومة بالذكاء الاصطناعي</span></h1>
+            <p>
+              هذا نموذج متكامل لمشروع <strong>مسار</strong> يجمع بين التعريف، المسارات المهنية، أدوات الذكاء الاصطناعي،
+              لوحة الطالب، لوحة المرشد، لوحة الإدارة، الـPortfolio، واكتشاف المسار المناسب — في ملف واحد جاهز للفتح مباشرة.
+            </p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" onclick="go('paths')">استكشف المسارات</button>
+              <button class="btn btn-secondary" onclick="go('discovery')">اكتشف مسارك بالذكاء</button>
+              <button class="btn" onclick="go('student')">ادخل لوحة الطالب</button>
+            </div>
+            <div class="metrics">
+              <div class="metric"><div class="n" id="mStudents">0</div><div class="l">طلاب نشطون</div></div>
+              <div class="metric"><div class="n" id="mTracks">0</div><div class="l">مسارات مهنية</div></div>
+              <div class="metric"><div class="n" id="mProjects">0</div><div class="l">مخرجات ومشاريع</div></div>
+              <div class="metric"><div class="n" id="mMentors">0</div><div class="l">مرشدون ومراجعون</div></div>
+            </div>
+          </div>
+          <div class="hero-panel">
+            <div class="small">قيمة المنصة</div>
+            <div class="grid grid-2" style="margin-top:10px">
+              <div class="card">
+                <h3>مسارات تدريجية</h3>
+                <p>Foundation → Exploration → Specialization → Monetization</p>
+              </div>
+              <div class="card">
+                <h3>طبقة AI عملية</h3>
+                <p>اقتراح مسار، توليد مشروع، تقييم أولي للـPortfolio، ومساعدة للمرشد.</p>
+              </div>
+              <div class="card">
+                <h3>نظام مرشد</h3>
+                <p>جلسات، ملاحظات، متابعة تعثر، وخطة تطوير واقعية لكل طالب.</p>
+              </div>
+              <div class="card">
+                <h3>جاهزية لسوق العمل</h3>
+                <p>قياس التقدم والـreadiness بناءً على مهارات ومشاريع ومخرجات عملية.</p>
+              </div>
+            </div>
+            <div class="notice" style="margin-top:14px">
+              هذه النسخة مصممة لتكون <strong>أساسًا متكاملًا</strong> تبني عليه لاحقًا دون الحاجة لإضافة إعدادات تشغيل معقدة.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container section">
+        <div class="section-head">
+          <div>
+            <h2>رحلة الطالب داخل مسار</h2>
+            <p class="lead">رحلة واضحة من البداية إلى أول دخل أو أول Portfolio قوي.</p>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="stage"><h3>Foundation</h3><p>أساسيات العمل الرقمي، استخدام AI، الوعي المهني، وأدوات الإنتاج الشخصي.</p></div>
+          <div class="stage"><h3>Exploration</h3><p>تجربة أكثر من مسار واكتشاف الميول والقدرات ونمط التعلم والعمل.</p></div>
+          <div class="stage"><h3>Specialization</h3><p>التعمق في مسار واضح مع مشاريع عملية وأدوات AI ومهارات مرتبطة به.</p></div>
+          <div class="stage"><h3>Monetization</h3><p>بناء Portfolio، أول عرض خدمة، وأول طريق دخل أو تدريب أو عمل حر.</p></div>
+        </div>
+      </div>
+
+      <div class="container section">
+        <div class="section-head">
+          <div>
+            <h2>ماذا يجعل مسار مختلفًا؟</h2>
+            <p class="lead">ليس مجرد محتوى، بل نظام توجيه وتشغيل وتقييم مستمر.</p>
+          </div>
+        </div>
+        <div class="grid grid-3">
+          <div class="card"><h3>تشخيص ذكي</h3><p>اقتراح المسار الأنسب للطالب حسب اهتماماته وطريقة تفكيره والهدف الذي يسعى إليه.</p></div>
+          <div class="card"><h3>مشاريع واقعية</h3><p>كل مسار يقود إلى مخرجات حقيقية يمكن عرضها في الـPortfolio بدل الاكتفاء بالشرح.</p></div>
+          <div class="card"><h3>لوحات تشغيل</h3><p>سطح للطالب، المرشد، والإدارة؛ بحيث تكون الرؤية شاملة وواضحة وليست مشتتة.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-paths">
+      <div class="container section">
+        <div class="section-head">
+          <div>
+            <h2>Hub المسارات</h2>
+            <p class="lead">مسارات أساسية، ذكاء اصطناعي، ومسارات مستقبلية مبنية على احتياجات السنوات القادمة.</p>
+          </div>
+          <div class="tagrow" id="pathFilters"></div>
+        </div>
+        <div class="grid grid-3" id="pathsGrid"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-track">
+      <div class="container section" id="trackPage"></div>
+    </section>
+
+    <section class="view" id="view-student">
+      <div class="container section">
+        <div class="section-head">
+          <div>
+            <h2>لوحة الطالب Pro</h2>
+            <p class="lead">Cockpit حقيقي للمسار الحالي، المهام، ملاحظات المرشد، والـPortfolio.</p>
+          </div>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi"><strong id="sdProgress">0%</strong><span>نسبة التقدم</span></div>
+          <div class="kpi"><strong id="sdMissions">0</strong><span>مهام هذا الأسبوع</span></div>
+          <div class="kpi"><strong id="sdAssets">0</strong><span>أصول Portfolio</span></div>
+          <div class="kpi"><strong id="sdSessions">0</strong><span>جلسات المرشد</span></div>
+        </div>
+        <div class="split" style="margin-top:16px">
+          <div class="grid">
+            <div class="panel">
+              <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">المسار الحالي</h2><button class="btn btn-ghost" onclick="go('track',state.currentStudent.trackSlug)">فتح صفحة المسار</button></div>
+              <div id="studentTrackBox"></div>
+            </div>
+            <div class="panel">
+              <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">مهام هذا الأسبوع</h2><span class="small">Weekly Missions</span></div>
+              <div class="list" id="studentMissions"></div>
+            </div>
+            <div class="panel">
+              <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">ملاحظات المرشد</h2><span class="small">Mentor Feedback</span></div>
+              <div class="list" id="studentFeedback"></div>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="panel">
+              <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">مؤشر الجاهزية</h2><span class="small">Readiness</span></div>
+              <div class="score-ring-wrap">
+                <div class="score-ring" id="studentScoreRing" style="--score:72"></div>
+                <div class="score-label"><div><strong id="studentScore">72</strong><div class="muted">جاهزية مهنية</div></div></div>
+              </div>
+              <div class="notice" id="studentAiHint" style="margin-top:16px"></div>
+            </div>
+            <div class="panel">
+              <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">الـPortfolio</h2><button class="btn btn-ghost" onclick="go('portfolio')">عرض الصفحة العامة</button></div>
+              <div class="list" id="studentPortfolio"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-mentor">
+      <div class="container section">
+        <div class="section-head">
+          <div>
+            <h2>لوحة المرشد Pro</h2>
+            <p class="lead">نظرة تشغيلية على الطلاب، المخاطر، الجلسات، وتوصيات التدخل.</p>
+          </div>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi"><strong id="mentorStudents">0</strong><span>عدد الطلاب</span></div>
+          <div class="kpi"><strong id="mentorRisk">0</strong><span>طلاب يحتاجون تدخل</span></div>
+          <div class="kpi"><strong id="mentorPending">0</strong><span>مراجعات معلقة</span></div>
+          <div class="kpi"><strong id="mentorSessions">0</strong><span>جلسات قادمة</span></div>
+        </div>
+        <div class="split" style="margin-top:16px">
+          <div class="panel">
+            <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">طلابي</h2><span class="small">Student snapshots</span></div>
+            <div class="list" id="mentorStudentsList"></div>
+          </div>
+          <div class="grid">
+            <div class="panel">
+              <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">الجلسات القادمة</h2></div>
+              <div class="list" id="mentorSessionsList"></div>
+            </div>
+            <div class="panel">
+              <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">AI Mentor Assistant</h2></div>
+              <div class="notice" id="mentorAiBox"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-admin">
+      <div class="container section">
+        <div class="section-head">
+          <div>
+            <h2>Admin Control Center</h2>
+            <p class="lead">إدارة الطلاب، المسارات، والبيانات الأساسية — داخل نفس الملف.</p>
+          </div>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi"><strong id="adminTotalStudents">0</strong><span>إجمالي الطلاب</span></div>
+          <div class="kpi"><strong id="adminActiveTracks">0</strong><span>المسارات المنشورة</span></div>
+          <div class="kpi"><strong id="adminPortfolio">0</strong><span>أصول الـPortfolio</span></div>
+          <div class="kpi"><strong id="adminNearReady">0</strong><span>طلاب قرب الجاهزية</span></div>
+        </div>
+        <div class="aside-grid" style="margin-top:16px">
+          <div class="panel">
+            <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">إضافة طالب</h2></div>
+            <form id="studentForm" class="grid">
+              <div class="form-grid">
+                <div class="field"><label>الاسم</label><input class="input" name="name" required /></div>
+                <div class="field"><label>البريد</label><input class="input" name="email" required /></div>
+                <div class="field"><label>المدينة</label><input class="input" name="city" /></div>
+                <div class="field"><label>المسار</label><select class="select" name="trackSlug" id="studentTrackSelect"></select></div>
+                <div class="field"><label>المرحلة</label><select class="select" name="stage"><option>EXPLORATION</option><option>SPECIALIZATION</option><option>MONETIZATION</option></select></div>
+                <div class="field"><label>نسبة التقدم</label><input class="input" name="progress" type="number" min="0" max="100" value="25" /></div>
+              </div>
+              <div class="field"><label>الأهداف (كل هدف بسطر)</label><textarea class="textarea" name="goals"></textarea></div>
+              <div><button class="btn btn-primary" type="submit">حفظ الطالب</button></div>
+            </form>
+          </div>
+          <div class="panel">
+            <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">إضافة مسار</h2></div>
+            <form id="trackForm" class="grid">
+              <div class="form-grid">
+                <div class="field"><label>اسم المسار</label><input class="input" name="title" required /></div>
+                <div class="field"><label>Slug</label><input class="input" name="slug" required /></div>
+                <div class="field"><label>الفئة</label><select class="select" name="category"><option>Core</option><option>AI</option><option>Future</option><option>Freelancing</option></select></div>
+                <div class="field"><label>المدة</label><input class="input" name="duration" value="8 Weeks" /></div>
+              </div>
+              <div class="field"><label>الوصف</label><textarea class="textarea" name="description"></textarea></div>
+              <div><button class="btn btn-secondary" type="submit">إضافة المسار</button></div>
+            </form>
+          </div>
+        </div>
+        <div class="grid grid-2" style="margin-top:16px">
+          <div class="panel">
+            <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">الطلاب</h2></div>
+            <div style="overflow:auto"><table class="table"><thead><tr><th>الاسم</th><th>المسار</th><th>التقدم</th><th>الجاهزية</th></tr></thead><tbody id="adminStudentsTable"></tbody></table></div>
+          </div>
+          <div class="panel">
+            <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">المسارات</h2></div>
+            <div style="overflow:auto"><table class="table"><thead><tr><th>المسار</th><th>الفئة</th><th>المدة</th><th>الحالة</th></tr></thead><tbody id="adminTracksTable"></tbody></table></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-portfolio">
+      <div class="container section">
+        <div class="panel portfolio-hero">
+          <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+            <div class="avatar" id="portfolioAvatar">أ</div>
+            <div>
+              <h2 style="margin:0 0 6px" id="portfolioName">أحمد</h2>
+              <div class="small" id="portfolioTrack">AI Agents Builder</div>
+              <div class="tagrow" style="margin-top:10px" id="portfolioSkills"></div>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="go('student')">العودة إلى لوحة الطالب</button>
+        </div>
+        <div class="grid grid-3" style="margin-top:16px" id="portfolioAssets"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-discovery">
+      <div class="container section">
+        <div class="section-head">
+          <div>
+            <h2>AI Career Discovery</h2>
+            <p class="lead">نموذج تشخيص سريع يقترح أقرب مسار مناسب للطالب.</p>
+          </div>
+        </div>
+        <div class="split">
+          <div class="panel">
+            <form id="discoveryForm" class="grid">
+              <div class="field"><label>أكثر شيء تستمتع به؟</label><select class="select" name="interest"><option value="logic">حل المشكلات والمنطق</option><option value="content">الكتابة وصناعة المحتوى</option><option value="design">التصميم والهوية</option><option value="data">التحليل والبيانات</option></select></div>
+              <div class="field"><label>كيف تفضل العمل؟</label><select class="select" name="style"><option value="systems">أنظمة وخطوات واضحة</option><option value="creative">إبداع وإنتاج أفكار</option><option value="analysis">تحليل وتنظيم</option><option value="client">خدمة عملاء وتقديم حلول</option></select></div>
+              <div class="field"><label>ما هدفك الأقرب؟</label><select class="select" name="goal"><option value="income">أول دخل خلال سنة</option><option value="skill">بناء مهارة قوية</option><option value="portfolio">بناء Portfolio قوي</option><option value="startup">بناء منتج أو فكرة</option></select></div>
+              <div class="field"><label>ما مستوى علاقتك بالذكاء الاصطناعي؟</label><select class="select" name="ai"><option value="beginner">مبتدئ</option><option value="normal">متوسط</option><option value="advanced">جيد وأستخدمه كثيرًا</option></select></div>
+              <div><button class="btn btn-primary" type="submit">اكتشف المسار الأنسب</button></div>
+            </form>
+          </div>
+          <div class="panel">
+            <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:22px">النتيجة</h2></div>
+            <div id="discoveryResult" class="empty">املأ النموذج، وسيقترح لك مسار مناسب مع تفسير وخطة 30 يومًا.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container footer">Masar One-File Complete Prototype · جاهز للتجربة والتعديل المباشر</div>
+</div>
+
+<script>
+const defaultData = {
+  tracks:[
+    {
+      title:"AI Agents Builder",slug:"ai-agents",category:"AI",level:"Intermediate",duration:"12 Weeks",published:true,
+      description:"بناء وكلاء ذكاء اصطناعي ينفذون المهام، يربطون الأدوات، ويحوّلون workflows إلى حلول عملية.",
+      whyItMatters:"هذا المسار مهم لأن مستقبل العمل يتجه نحو الأنظمة الذكية القادرة على تنفيذ العمليات وليس فقط تقديم الإجابات.",
+      fitFor:["محبو المنطق وحل المشكلات","من يريد الجمع بين AI والأتمتة","من يريد مشروعًا قابلًا للبيع"],
+      stages:[
+        {title:"Foundation",description:"أساسيات LLMs وAPIs ومنطق workflows."},
+        {title:"Exploration",description:"تجربة حالات استخدام وبناء flows بسيطة."},
+        {title:"Specialization",description:"بناء agents متعددة الخطوات مرتبطة بأدوات خارجية."},
+        {title:"Monetization",description:"تحويل الـagent إلى خدمة أو prototype أو أصل Portfolio."}
+      ],
+      skills:["Prompt Design","Workflow Logic","API Integration","Automation Thinking","Testing"],
+      tools:["ChatGPT","OpenAI API","n8n","Make","LangChain"],
+      projects:["Agent للرد على العملاء","Agent لتنظيم المهام","Agent للبحث وتجميع المعلومات","Agent لإنشاء تقارير تلقائية"],
+      portfolioOutcomes:["Case Study","Demo Video","Workflow Map","Prototype"],
+      firstIncomePath:"قدّم خدمة بناء agents بسيطة لأصحاب الأعمال الصغيرة وفرق المحتوى والإدارات.",
+      mentorSupport:"المرشد يساعدك في اختيار فكرة مناسبة، مراجعة منطق الـagent، وتحويله إلى أصل Portfolio قوي.",
+      aiInsight:"أفضل من ينجحون هنا هم من يحولون المشكلة إلى خطوات واضحة قابلة للتنفيذ.",
+      earningPotential:"High"
+    },
+    {
+      title:"Prompt Engineering",slug:"prompt-engineering",category:"AI",level:"Beginner",duration:"8 Weeks",published:true,
+      description:"تعلّم كيف تتعامل مع الذكاء الاصطناعي باحتراف وتبني prompts وأنظمة مخرجات قوية.",
+      whyItMatters:"لأن القدرة على توجيه النماذج الذكية أصبحت مهارة أساسية في معظم الأعمال الرقمية الحديثة.",
+      fitFor:["من يبدأ من الصفر","محبو الكتابة والتحليل","من يريد دخول AI بسرعة"],
+      stages:[
+        {title:"Foundation",description:"فهم أساسيات prompts والسياق والمخرجات."},
+        {title:"Exploration",description:"استخدامات في الدراسة والعمل والإنتاج."},
+        {title:"Specialization",description:"بناء prompt systems وframeworks متقدمة."},
+        {title:"Monetization",description:"بيع prompt packs أو تحسين workflows للعملاء."}
+      ],
+      skills:["Prompt Writing","Context Framing","Output Structuring","Iteration","Task Decomposition"],
+      tools:["ChatGPT","Claude","Perplexity","Notion AI"],
+      projects:["Prompt Library","Content Workflow","Prompt Pack لفئة مهنية"],
+      portfolioOutcomes:["Prompt Collection","Use Cases","Workflow Examples"],
+      firstIncomePath:"بيع prompt packs أو تقديم خدمة تحسين workflow باستخدام AI.",
+      mentorSupport:"المرشد يساعد في تنظيم مكتبة prompts وتحويلها إلى قيمة عملية قابلة للبيع.",
+      aiInsight:"أفضل نتائج هذا المسار تأتي ممن يفكرون في الهدف النهائي قبل كتابة السؤال.",
+      earningPotential:"Medium"
+    },
+    {
+      title:"AI Content Creation",slug:"ai-content",category:"AI",level:"Beginner",duration:"10 Weeks",published:true,
+      description:"صناعة محتوى ذكي وسريع مع الحفاظ على الجودة والهوية والأسلوب.",
+      whyItMatters:"المحتوى سيبقى محركًا رئيسيًا للنمو الشخصي والمهني والتجاري، وAI يسرّع الإنتاج بشكل هائل.",
+      fitFor:["محبو الكتابة والسرد","من يريد بناء علامة شخصية","من يحب المحتوى التعليمي أو التسويقي"],
+      stages:[
+        {title:"Foundation",description:"أساسيات المحتوى والجمهور والرسالة."},
+        {title:"Exploration",description:"تجربة قوالب ومنصات وأنواع محتوى متعددة."},
+        {title:"Specialization",description:"بناء systems لإنتاج محتوى متسق وعالي الجودة."},
+        {title:"Monetization",description:"تقديم خدمة محتوى، أو بناء قناة، أو بيع قوالب."}
+      ],
+      skills:["Storytelling","Content Planning","AI Editing","Audience Fit","Repurposing"],
+      tools:["ChatGPT","Canva","CapCut","Claude","Notion AI"],
+      projects:["خطة محتوى شهرية","قناة قصيرة","نظام repurposing","Profile Kit"],
+      portfolioOutcomes:["Content Samples","Brand Kit","Editorial Plan"],
+      firstIncomePath:"خدمة كتابة/إعادة صياغة/إنتاج محتوى مدعوم بالذكاء الاصطناعي.",
+      mentorSupport:"المرشد يساعد في ضبط الرسالة، اختيار niche، وتحويل المحتوى إلى دليل كفاءة.",
+      aiInsight:"النجاح هنا يعتمد على فهم الجمهور أكثر من مجرد كثرة الإنتاج.",
+      earningPotential:"Medium"
+    },
+    {
+      title:"Data Analysis",slug:"data-analysis",category:"Core",level:"Intermediate",duration:"12 Weeks",published:true,
+      description:"تحليل البيانات واتخاذ قرارات مبنية على الأرقام ولوحات المتابعة.",
+      whyItMatters:"القدرة على قراءة البيانات وتفسيرها مهارة أساسية في الشركات والمنتجات والإدارات الحديثة.",
+      fitFor:["محبو التحليل","من يحب الدقة والتنظيم","من يريد فهم الأعمال بالأرقام"],
+      stages:[
+        {title:"Foundation",description:"Excel والمنطق التحليلي والأسئلة الصحيحة."},
+        {title:"Exploration",description:"فهم datasets ولوحات المؤشرات."},
+        {title:"Specialization",description:"تحليل متقدم وقصص بيانات وتقارير."},
+        {title:"Monetization",description:"تقارير للشركات أو لوحات متابعة كخدمة."}
+      ],
+      skills:["Excel","Data Cleaning","Visualization","Insight Framing","Reporting"],
+      tools:["Excel","Power BI","ChatGPT","Google Sheets"],
+      projects:["Dashboard مدرسة","تحليل متجر","لوحة حضور وأداء"],
+      portfolioOutcomes:["Dashboards","Insight Reports","Cleaned Datasets"],
+      firstIncomePath:"تصميم dashboards أو تقارير تحليلية للجهات الصغيرة.",
+      mentorSupport:"المرشد يساعد في تحويل الجداول إلى قصة واضحة ونتيجة قابلة للعرض.",
+      aiInsight:"القيمة الحقيقية هنا ليست في الرسم البياني نفسه، بل في الاستنتاج الذي ينتج عنه.",
+      earningPotential:"High"
+    },
+    {
+      title:"UI/UX Design",slug:"ui-ux",category:"Core",level:"Beginner",duration:"10 Weeks",published:true,
+      description:"تصميم واجهات وتجارب استخدام حديثة تركز على الوضوح والجاذبية والنتيجة.",
+      whyItMatters:"كل منتج رقمي يحتاج لتجربة استخدام ممتازة، والطلب على المصممين العمليين مستمر.",
+      fitFor:["محبو الجمال والتنظيم","من يلاحظ التفاصيل","من يريد دمج التصميم بالمشكلات الحقيقية"],
+      stages:[
+        {title:"Foundation",description:"مبادئ التصميم والـlayout والهوية."},
+        {title:"Exploration",description:"دراسة صفحات ومنتجات وتجارب حقيقية."},
+        {title:"Specialization",description:"تصميم flows وصفحات ومكونات متسقة."},
+        {title:"Monetization",description:"بيع صفحات وهويات وتجارب لجهات وأفراد."}
+      ],
+      skills:["Layout","Hierarchy","UX Thinking","Components","Design Critique"],
+      tools:["Figma","Canva","ChatGPT","Midjourney"],
+      projects:["Landing Page","Dashboard UI","Design System مصغر"],
+      portfolioOutcomes:["UI Screens","Case Study","Component Kit"],
+      firstIncomePath:"خدمة تصميم صفحات ومكونات UI لمشاريع صغيرة ومتوسطة.",
+      mentorSupport:"المرشد يساعد في ربط الجمال بالهدف وليس بالشكل فقط.",
+      aiInsight:"المصمم القوي هو من يجعل الاستخدام أسهل، لا من يضيف زخرفة أكثر.",
+      earningPotential:"Medium"
+    },
+    {
+      title:"Digital Freelancing",slug:"freelancing",category:"Freelancing",level:"Beginner",duration:"6 Weeks",published:true,
+      description:"فهم العمل الحر، التسعير، تقديم العروض، وبناء حضور مهني رقمي.",
+      whyItMatters:"المهارة وحدها لا تكفي؛ يجب أن يعرف الطالب كيف يعرض نفسه ويبيع خدمته بثقة وتنظيم.",
+      fitFor:["كل طالب يريد أول دخل","من يريد فهم السوق والعملاء","من يحتاج مهارة تقديم نفسه"],
+      stages:[
+        {title:"Foundation",description:"أساسيات العمل الحر والملف الشخصي."},
+        {title:"Exploration",description:"دراسة المنصات والعروض والطلبات."},
+        {title:"Specialization",description:"بناء niche واضح وعرض خدمة منظم."},
+        {title:"Monetization",description:"أول عرض حقيقي وأول عميل وأول تسعير."}
+      ],
+      skills:["Profile Building","Offer Writing","Pricing","Client Communication","Scope Control"],
+      tools:["ChatGPT","Canva","Notion","Google Docs"],
+      projects:["Freelance Profile","Offer Pack","Proposal Template"],
+      portfolioOutcomes:["Service Sheet","Profile","Sample Proposals"],
+      firstIncomePath:"تجهيز عرض خدمة واضح والتواصل مع أول عملاء محتملين بباقة أولية بسيطة.",
+      mentorSupport:"المرشد يساعد في صياغة العرض وتعديل الرسائل الأولى وتحسين التقديم.",
+      aiInsight:"العمل الحر يبدأ من الوضوح والثقة، لا من الانتظار حتى الكمال.",
+      earningPotential:"High"
+    }
+  ],
+  students:[
+    {
+      id:'s1',name:'أحمد حبلي',email:'ahmad@masar.local',city:'صيدا',trackSlug:'ai-agents',stage:'SPECIALIZATION',progress:72,
+      goals:['بناء Agent عملي','إضافة 3 أصول Portfolio','الوصول لأول عميل خلال 3 أشهر'],
+      readiness:74,
+      mentorId:'m1',
+      missions:[
+        {title:'بناء Agent للرد على العملاء',status:'In Progress'},
+        {title:'تجهيز Demo Video',status:'Pending'},
+        {title:'توثيق workflow في Case Study',status:'Pending'}
+      ],
+      feedback:[
+        {title:'مراجعة المنطق',note:'منطق الخطوات جيد، لكن تحتاج تحسين آلية fallback عند فشل الأداة.',date:'2026-04-08'},
+        {title:'مراجعة العرض',note:'حوّل المشروع إلى خدمة واضحة مع 3 حالات استخدام بدل حالة واحدة.',date:'2026-04-10'}
+      ],
+      assets:[
+        {title:'Customer Support Agent',type:'Prototype',status:'Published',score:86,url:'#'},
+        {title:'Workflow Map',type:'Case Study',status:'Review',score:75,url:'#'},
+        {title:'Demo Video',type:'Video',status:'Draft',score:0,url:'#'}
+      ]
+    },
+    {
+      id:'s2',name:'سارة علي',email:'sara@masar.local',city:'بيروت',trackSlug:'prompt-engineering',stage:'EXPLORATION',progress:38,
+      goals:['إتقان prompt systems','بناء library خاصة','أول منتج رقمي بسيط'],
+      readiness:49,
+      mentorId:'m1',
+      missions:[{title:'بناء Prompt Pack للتعليم',status:'In Progress'}],
+      feedback:[{title:'نقطة قوة',note:'جيد جدًا في هيكلة السؤال، يحتاج فقط تنويع use cases.',date:'2026-04-09'}],
+      assets:[{title:'Education Prompt Pack',type:'Digital Pack',status:'Review',score:68,url:'#'}]
+    },
+    {
+      id:'s3',name:'عمر مصطفى',email:'omar@masar.local',city:'طرابلس',trackSlug:'data-analysis',stage:'MONETIZATION',progress:88,
+      goals:['Dashboard احترافي','خدمة أول عميل','تحسين العرض'],
+      readiness:83,
+      mentorId:'m2',
+      missions:[{title:'تحليل بيانات متجر',status:'Done'}],
+      feedback:[{title:'جاهزية عالية',note:'قريب من أول عميل، يحتاج فقط تجميع عينات العمل في صفحة واحدة.',date:'2026-04-11'}],
+      assets:[{title:'Store Analytics Dashboard',type:'Dashboard',status:'Published',score:91,url:'#'}]
+    }
+  ],
+  mentors:[
+    {id:'m1',name:'محمد المرشد',focus:'AI & Productive Workflows'},
+    {id:'m2',name:'ريم الخطيب',focus:'Data & Career Readiness'}
+  ],
+  sessions:[
+    {mentorId:'m1',studentId:'s1',title:'جلسة مراجعة Agent',date:'2026-04-15 18:00'},
+    {mentorId:'m1',studentId:'s2',title:'مراجعة Prompt Pack',date:'2026-04-16 17:00'},
+    {mentorId:'m2',studentId:'s3',title:'تجهيز أول عرض عميل',date:'2026-04-17 19:00'}
+  ]
+};
+
+const state = {
+  filter:'All',
+  currentStudentId:'s1',
+  selectedTrackSlug:'ai-agents'
+};
+
+function loadDB(){
+  try{
+    return JSON.parse(localStorage.getItem('masar-onefile-db')) || structuredClone(defaultData);
+  }catch(e){
+    return structuredClone(defaultData);
+  }
+}
+let db = loadDB();
+function saveDB(){ localStorage.setItem('masar-onefile-db', JSON.stringify(db)); }
+function bySlug(slug){ return db.tracks.find(t=>t.slug===slug); }
+function currentStudent(){ return db.students.find(s=>s.id===state.currentStudentId) || db.students[0]; }
+state.currentStudent = currentStudent();
+
+function go(route, param){
+  if(route==='track' && param){ state.selectedTrackSlug = param; location.hash = `track/${param}`; }
+  else location.hash = route;
+}
+
+function router(){
+  const hash = location.hash.replace('#','') || 'home';
+  let route = hash, param = null;
+  if(hash.startsWith('track/')){ route='track'; param = hash.split('/')[1]; state.selectedTrackSlug = param; }
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const view = document.getElementById(`view-${route}`) || document.getElementById('view-home');
+  view.classList.add('active');
+  document.querySelectorAll('#mainNav a').forEach(a=>a.classList.toggle('active', a.dataset.route===route));
+  render(route, param);
+}
+
+function render(route){
+  state.currentStudent = currentStudent();
+  renderGlobalMetrics();
+  if(route==='paths') renderPaths();
+  if(route==='track') renderTrackPage();
+  if(route==='student') renderStudent();
+  if(route==='mentor') renderMentor();
+  if(route==='admin') renderAdmin();
+  if(route==='portfolio') renderPortfolio();
+  if(route==='discovery') renderDiscovery();
+}
+
+function renderGlobalMetrics(){
+  document.getElementById('mStudents').textContent = db.students.length;
+  document.getElementById('mTracks').textContent = db.tracks.length;
+  document.getElementById('mProjects').textContent = db.students.reduce((a,s)=>a+s.assets.length,0);
+  document.getElementById('mMentors').textContent = db.mentors.length;
+}
+
+function renderPaths(){
+  const filters = ['All','Core','AI','Future','Freelancing'];
+  document.getElementById('pathFilters').innerHTML = filters.map(f=>`<button class="btn ${state.filter===f?'btn-primary':''}" onclick="setFilter('${f}')">${f==='All'?'الكل':f}</button>`).join('');
+  const tracks = state.filter==='All'? db.tracks : db.tracks.filter(t=>t.category===state.filter);
+  const el = document.getElementById('pathsGrid');
+  el.innerHTML = tracks.map(t=>`
+    <div class="card path-card" onclick="go('track','${t.slug}')">
+      <div class="tagrow">
+        <span class="tag">${t.category}</span>
+        <span class="tag">${t.level}</span>
+        <span class="tag">${t.duration}</span>
+      </div>
+      <h3>${t.title}</h3>
+      <p>${t.description}</p>
+      <div class="pillrow">${t.tools.slice(0,3).map(x=>`<span class="pill">${x}</span>`).join('')}</div>
+      <div class="small">قيمة سوقية: ${t.earningPotential} · عرض المسار ←</div>
+    </div>
+  `).join('') || '<div class="empty">لا توجد مسارات ضمن هذا التصنيف.</div>';
+}
+function setFilter(f){ state.filter = f; renderPaths(); }
+
+function renderTrackPage(){
+  const t = bySlug(state.selectedTrackSlug) || db.tracks[0];
+  const el = document.getElementById('trackPage');
+  el.innerHTML = `
+    <div class="hero-panel">
+      <div class="tagrow">
+        <span class="tag">${t.category}</span>
+        <span class="tag">${t.level}</span>
+        <span class="tag">${t.duration}</span>
+      </div>
+      <h1 style="font-size:48px;line-height:1.08;margin:14px 0 10px">${t.title}</h1>
+      <p class="lead" style="max-width:850px">${t.description}</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="assignStudentTrack('${t.slug}')">اجعل هذا مساري الحالي</button>
+        <button class="btn" onclick="go('student')">اذهب إلى لوحة الطالب</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="grid grid-2">
+        <div class="panel"><h2 style="font-size:24px;margin-top:0">لماذا هذا المسار مهم؟</h2><p class="lead">${t.whyItMatters}</p></div>
+        <div class="panel"><h2 style="font-size:24px;margin-top:0">لمن يناسب هذا المسار؟</h2><div class="list">${t.fitFor.map(x=>`<div class="list-item"><div>${x}</div><span class="badge ok">Fit</span></div>`).join('')}</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><div><h2>خارطة الطريق</h2><p class="lead">رحلة واضحة من الأساس إلى أول مشروع ودخل محتمل.</p></div></div>
+      <div class="timeline">${t.stages.map(s=>`<div class="stage"><h3>${s.title}</h3><p>${s.description}</p></div>`).join('')}</div>
+    </div>
+
+    <div class="section"><div class="section-head"><div><h2>المهارات</h2></div></div><div class="tagrow">${t.skills.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
+    <div class="section"><div class="section-head"><div><h2>أدوات AI المرتبطة</h2></div></div><div class="pillrow">${t.tools.map(x=>`<span class="pill">${x}</span>`).join('')}</div></div>
+
+    <div class="section">
+      <div class="section-head"><div><h2>مشاريع عملية</h2><p class="lead">كل مشروع هنا يمكن أن يتحول إلى أصل Portfolio حقيقي.</p></div></div>
+      <div class="grid grid-2">${t.projects.map(p=>`<div class="card"><h3>${p}</h3><p>مشروع عملي يثبت المهارة ويمنح الطالب ناتجًا ملموسًا للعرض.</p></div>`).join('')}</div>
+    </div>
+
+    <div class="section">
+      <div class="grid grid-2">
+        <div class="panel"><h2 style="font-size:24px;margin-top:0">مخرجات الـPortfolio</h2><div class="list">${t.portfolioOutcomes.map(x=>`<div class="list-item"><div>${x}</div><span class="badge warn">Output</span></div>`).join('')}</div></div>
+        <div class="panel"><h2 style="font-size:24px;margin-top:0">أول طريق للدخل</h2><p class="lead">${t.firstIncomePath}</p><div class="notice" style="margin-top:14px"><strong>AI Insight:</strong> ${t.aiInsight}</div><div class="notice" style="margin-top:14px"><strong>Mentor Support:</strong> ${t.mentorSupport}</div></div>
+      </div>
+    </div>
+  `;
+}
+function assignStudentTrack(slug){
+  const s = currentStudent();
+  s.trackSlug = slug;
+  s.progress = Math.min(s.progress, 30);
+  saveDB();
+  alert('تم تعيين المسار الحالي للطالب.');
+  go('student');
+}
+
+function renderStudent(){
+  const s = currentStudent();
+  const t = bySlug(s.trackSlug);
+  document.getElementById('sdProgress').textContent = `${s.progress}%`;
+  document.getElementById('sdMissions').textContent = s.missions.length;
+  document.getElementById('sdAssets').textContent = s.assets.length;
+  document.getElementById('sdSessions').textContent = db.sessions.filter(x=>x.studentId===s.id).length;
+  document.getElementById('studentScore').textContent = s.readiness;
+  document.getElementById('studentScoreRing').style.setProperty('--score', s.readiness);
+  document.getElementById('studentAiHint').innerHTML = `<strong>اقتراح ذكي:</strong> ${s.readiness < 60 ? 'ركّز على مشروع Portfolio واحد قوي هذا الأسبوع بدل تشتيت الجهد.' : s.readiness < 80 ? 'أنت قريب من الجاهزية؛ حوّل مشروعك الحالي إلى عرض خدمة واضح.' : 'مستواك جيد جدًا؛ ابدأ بتجهيز صفحة بيع أو رسالة تواصل مع أول عميل.'}`;
+  document.getElementById('studentTrackBox').innerHTML = `
+    <div class="tagrow"><span class="tag">${t.category}</span><span class="tag">${s.stage}</span><span class="tag">${t.duration}</span></div>
+    <h3 style="margin:14px 0 8px">${t.title}</h3>
+    <p>${t.description}</p>
+    <div style="margin-top:14px" class="progress"><span style="width:${s.progress}%"></span></div>
+    <div class="small" style="margin-top:8px">التقدم الحالي ${s.progress}%</div>
+  `;
+  document.getElementById('studentMissions').innerHTML = s.missions.map(m=>`<div class="list-item"><div><strong>${m.title}</strong><div class="small">مهمة تشغيلية ضمن المسار الحالي</div></div><span class="badge ${m.status==='Done'?'ok':m.status==='In Progress'?'warn':'danger'}">${m.status}</span></div>`).join('');
+  document.getElementById('studentFeedback').innerHTML = s.feedback.map(f=>`<div class="list-item"><div><strong>${f.title}</strong><div class="small">${f.note}</div></div><span class="small">${f.date}</span></div>`).join('') || '<div class="empty">لا توجد ملاحظات بعد.</div>';
+  document.getElementById('studentPortfolio').innerHTML = s.assets.map(a=>`<div class="list-item"><div><strong>${a.title}</strong><div class="small">${a.type} · Score ${a.score || '-'}</div></div><span class="badge ${a.status==='Published'?'ok':a.status==='Review'?'warn':'danger'}">${a.status}</span></div>`).join('');
+}
+
+function renderMentor(){
+  const mentor = db.mentors[0];
+  const students = db.students.filter(s=>s.mentorId===mentor.id);
+  const risk = students.filter(s=>s.readiness < 55).length;
+  const pending = students.reduce((a,s)=>a+s.assets.filter(x=>x.status!=='Published').length,0);
+  const sessions = db.sessions.filter(x=>x.mentorId===mentor.id);
+  document.getElementById('mentorStudents').textContent = students.length;
+  document.getElementById('mentorRisk').textContent = risk;
+  document.getElementById('mentorPending').textContent = pending;
+  document.getElementById('mentorSessions').textContent = sessions.length;
+  document.getElementById('mentorStudentsList').innerHTML = students.map(s=>{
+    const t = bySlug(s.trackSlug);
+    return `<div class="list-item"><div><strong>${s.name}</strong><div class="small">${t.title} · ${s.progress}% progress · readiness ${s.readiness}</div></div><span class="badge ${s.readiness>=75?'ok':s.readiness>=55?'warn':'danger'}">${s.readiness>=75?'Stable':s.readiness>=55?'Watch':'At Risk'}</span></div>`;
+  }).join('');
+  document.getElementById('mentorSessionsList').innerHTML = sessions.map(ss=>{
+    const s = db.students.find(x=>x.id===ss.studentId);
+    return `<div class="list-item"><div><strong>${ss.title}</strong><div class="small">${s.name}</div></div><span class="small">${ss.date}</span></div>`;
+  }).join('');
+  document.getElementById('mentorAiBox').innerHTML = `
+    <strong>${mentor.name}</strong><br><br>
+    توصية هذا الأسبوع: ركّز على الطلاب الأقل من 55 في الجاهزية، واطلب من كل طالب متعثر مخرجًا واحدًا فقط قابلًا للنشر بدل ثلاث مهام متوازية.
+    <br><br>
+    <strong>أولوية الجلسات:</strong> ${risk>0 ? 'المتعثرون أولًا، ثم الطلاب القريبون من أول دخل.' : 'يمكنك التركيز على تحسين الـPortfolio وتحويل الأعمال إلى عروض خدمة.'}
+  `;
+}
+
+function renderAdmin(){
+  const published = db.tracks.filter(t=>t.published).length;
+  const assets = db.students.reduce((a,s)=>a+s.assets.length,0);
+  const nearReady = db.students.filter(s=>s.readiness>=75).length;
+  document.getElementById('adminTotalStudents').textContent = db.students.length;
+  document.getElementById('adminActiveTracks').textContent = published;
+  document.getElementById('adminPortfolio').textContent = assets;
+  document.getElementById('adminNearReady').textContent = nearReady;
+  document.getElementById('studentTrackSelect').innerHTML = db.tracks.map(t=>`<option value="${t.slug}">${t.title}</option>`).join('');
+  document.getElementById('adminStudentsTable').innerHTML = db.students.map(s=>{
+    const t = bySlug(s.trackSlug);
+    return `<tr><td>${s.name}<div class="small">${s.city||'-'}</div></td><td>${t.title}</td><td>${s.progress}%</td><td>${s.readiness}</td></tr>`;
+  }).join('');
+  document.getElementById('adminTracksTable').innerHTML = db.tracks.map(t=>`<tr><td>${t.title}</td><td>${t.category}</td><td>${t.duration}</td><td>${t.published?'<span class="badge ok">Published</span>':'<span class="badge warn">Draft</span>'}</td></tr>`).join('');
+}
+
+function renderPortfolio(){
+  const s = currentStudent();
+  const t = bySlug(s.trackSlug);
+  document.getElementById('portfolioAvatar').textContent = s.name.charAt(0);
+  document.getElementById('portfolioName').textContent = s.name;
+  document.getElementById('portfolioTrack').textContent = `${t.title} · جاهزية ${s.readiness}`;
+  document.getElementById('portfolioSkills').innerHTML = t.skills.slice(0,5).map(x=>`<span class="tag">${x}</span>`).join('');
+  document.getElementById('portfolioAssets').innerHTML = s.assets.map(a=>`<div class="card"><h3>${a.title}</h3><p>${a.type}</p><div class="tagrow" style="margin-top:12px"><span class="tag">${a.status}</span><span class="tag">Score ${a.score || '-'}</span></div><div class="small" style="margin-top:14px">نموذج عرض عام لأصل من أصول الطالب.</div></div>`).join('');
+}
+
+function renderDiscovery(){
+  const box = document.getElementById('discoveryResult');
+  if(!box.dataset.ready){
+    box.dataset.ready = '1';
+    box.innerHTML = '<div class="empty">املأ النموذج، وسيقترح لك مسار مناسب مع تفسير وخطة 30 يومًا.</div>';
+  }
+}
+
+function recommendTrack({interest,style,goal,ai}){
+  if(interest==='logic' && style==='systems') return 'ai-agents';
+  if(interest==='content') return 'ai-content';
+  if(interest==='data' || style==='analysis') return 'data-analysis';
+  if(interest==='design') return 'ui-ux';
+  if(goal==='income' && ai==='beginner') return 'freelancing';
+  return 'prompt-engineering';
+}
+
+function slugify(s){
+  return s.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');
+}
+
+window.addEventListener('submit', (e)=>{
+  if(e.target.id==='studentForm'){
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const trackSlug = fd.get('trackSlug');
+    db.students.push({
+      id:'s'+Date.now(),
+      name:String(fd.get('name')||''),
+      email:String(fd.get('email')||''),
+      city:String(fd.get('city')||''),
+      trackSlug,
+      stage:String(fd.get('stage')||'EXPLORATION'),
+      progress:Number(fd.get('progress')||0),
+      goals:String(fd.get('goals')||'').split('\n').map(x=>x.trim()).filter(Boolean),
+      readiness:Math.max(20, Math.min(95, Number(fd.get('progress')||0)+15)),
+      mentorId:'m1',
+      missions:[{title:'مهمة أولى ضمن المسار',status:'Pending'}],
+      feedback:[],
+      assets:[]
+    });
+    saveDB();
+    e.target.reset();
+    renderAdmin();
+    alert('تمت إضافة الطالب.');
+  }
+  if(e.target.id==='trackForm'){
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const slug = String(fd.get('slug')||'') || slugify(String(fd.get('title')||''));
+    db.tracks.push({
+      title:String(fd.get('title')||''),
+      slug,
+      category:String(fd.get('category')||'Core'),
+      level:'Beginner',
+      duration:String(fd.get('duration')||'8 Weeks'),
+      published:false,
+      description:String(fd.get('description')||''),
+      whyItMatters:'مسار جديد تمت إضافته من لوحة الإدارة.',
+      fitFor:['طلاب هذا الاتجاه'],
+      stages:[
+        {title:'Foundation',description:'بداية المسار.'},
+        {title:'Exploration',description:'استكشاف.'},
+        {title:'Specialization',description:'تخصص.'},
+        {title:'Monetization',description:'ربط بسوق العمل.'}
+      ],
+      skills:['Skill 1','Skill 2'],
+      tools:['ChatGPT'],
+      projects:['Project 1'],
+      portfolioOutcomes:['Output 1'],
+      firstIncomePath:'سيتم تطويره لاحقًا.',
+      mentorSupport:'سيتم تطويره لاحقًا.',
+      aiInsight:'هذا المسار جديد ويحتاج ضبط المحتوى لاحقًا.',
+      earningPotential:'Medium'
+    });
+    saveDB();
+    e.target.reset();
+    renderAdmin();
+    renderPaths();
+    alert('تمت إضافة المسار.');
+  }
+  if(e.target.id==='discoveryForm'){
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const slug = recommendTrack(Object.fromEntries(fd.entries()));
+    const t = bySlug(slug);
+    document.getElementById('discoveryResult').innerHTML = `
+      <h3 style="margin-top:0">المسار المقترح: ${t.title}</h3>
+      <p class="lead">${t.description}</p>
+      <div class="tagrow" style="margin:12px 0">${t.skills.slice(0,4).map(x=>`<span class="tag">${x}</span>`).join('')}</div>
+      <div class="notice"><strong>لماذا هذا الترشيح؟</strong><br>بناءً على اختياراتك، لديك ميل إلى ${String(fd.get('interest'))} مع نمط عمل ${String(fd.get('style'))} وهدف قريب هو ${String(fd.get('goal'))}. هذا يجعل ${t.title} أقرب نقطة بداية عملية لك.</div>
+      <div class="notice" style="margin-top:12px"><strong>خطة 30 يومًا:</strong><br>1) تعلّم أساسيات المجال وأدواته. <br>2) نفّذ مشروعًا صغيرًا واحدًا. <br>3) وثّق الناتج في أصل Portfolio. <br>4) اعرضه على مرشدك واطلب feedback. </div>
+      <div style="margin-top:14px"><button class="btn btn-primary" onclick="go('track','${t.slug}')">افتح صفحة المسار</button></div>
+    `;
+  }
+});
+
+window.addEventListener('hashchange', router);
+window.addEventListener('DOMContentLoaded', ()=>{
+  router();
+});
+</script>
+</body>
+</html>
